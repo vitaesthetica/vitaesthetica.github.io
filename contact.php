@@ -1,142 +1,79 @@
-<!DOCTYPE HTML>
-<html>
+<?php
 
-<head>
-  <title>scenic_photo</title>
-  <meta name="description" content="website description" />
-  <meta name="keywords" content="website keywords, website keywords" />
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-  <link rel="stylesheet" type="text/css" href="css/style.css" />
-  <!-- modernizr enables HTML5 elements and feature detects -->
-  <script type="text/javascript" src="js/modernizr-1.5.min.js"></script>
-</head>
+if(!$_POST) exit;
 
-<body>
-  <div id="main">
-    <header>
-      <div id="logo">
-        <div id="logo_text">
-          <!-- class="logo_colour", allows you to change the colour of the text -->
-          <h1><a href="index.html">scenic<span class="logo_colour">_photo</span></a></h1>
-          <h2>Simple. Contemporary. Website Template.</h2>
-        </div>
-      </div>
-      <nav>
-        <div id="menu_container">
-          <ul class="sf-menu" id="nav">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="examples.html">Examples</a></li>
-            <li><a href="page.html">A Page</a></li>
-            <li><a href="another_page.html">Another Page</a></li>
-            <li><a href="#">Example Drop Down</a>
-              <ul>
-                <li><a href="#">Drop Down One</a></li>
-                <li><a href="#">Drop Down Two</a>
-                  <ul>
-                    <li><a href="#">Sub Drop Down One</a></li>
-                    <li><a href="#">Sub Drop Down Two</a></li>
-                    <li><a href="#">Sub Drop Down Three</a></li>
-                    <li><a href="#">Sub Drop Down Four</a></li>
-                    <li><a href="#">Sub Drop Down Five</a></li>
-                  </ul>
-                </li>
-                <li><a href="#">Drop Down Three</a></li>
-                <li><a href="#">Drop Down Four</a></li>
-                <li><a href="#">Drop Down Five</a></li>
-              </ul>
-            </li>
-            <li><a href="contact.php">Contact Us</a></li>
-          </ul>
-        </div>
-      </nav>
-    </header>
-    <div id="site_content">
-      <div id="sidebar_container">
-        <div class="sidebar">
-          <h3>Latest News</h3>
-          <h4>New Website Launched</h4>
-          <h5>January 1st, 2012</h5>
-          <p>2012 sees the redesign of our website. Take a look around and let us know what you think.<br /><a href="#">Read more</a></p>
-        </div>
-        <div class="sidebar">
-          <h3>Useful Links</h3>
-          <ul>
-            <li><a href="#">First Link</a></li>
-            <li><a href="#">Another Link</a></li>
-            <li><a href="#">And Another</a></li>
-            <li><a href="#">One More</a></li>
-            <li><a href="#">Last One</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="content">
-        <h1>Contact Us</h1>
-        <p>Say hello, using this contact form.</p>
-        <?php
-          // Set-up these 3 parameters
-          // 1. Enter the email address you would like the enquiry sent to
-          // 2. Enter the subject of the email you will receive, when someone contacts you
-          // 3. Enter the text that you would like the user to see once they submit the contact form
-          $to = 'enter email address here';
-          $subject = 'Enquiry from the website';
-          $contact_submitted = 'Your message has been sent.';
+// Email address verification, do not edit.
+function isEmail($email) {
+	return(preg_match("/^[-_.[:alnum:]]+@((([[:alnum:]]|[[:alnum:]][[:alnum:]-]*[[:alnum:]])\.)+(ad|ae|aero|af|ag|ai|al|am|an|ao|aq|ar|arpa|as|at|au|aw|az|ba|bb|bd|be|bf|bg|bh|bi|biz|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|com|coop|cr|cs|cu|cv|cx|cy|cz|de|dj|dk|dm|do|dz|ec|edu|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gh|gi|gl|gm|gn|gov|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|in|info|int|io|iq|ir|is|it|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mil|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|museum|mv|mw|mx|my|mz|na|name|nc|ne|net|nf|ng|ni|nl|no|np|nr|nt|nu|nz|om|org|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|pro|ps|pt|pw|py|qa|re|ro|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|sk|sl|sm|sn|so|sr|st|su|sv|sy|sz|tc|td|tf|tg|th|tj|tk|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|um|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)$|(([0-9][0-9]?|[0-1][0-9][0-9]|[2][0-4][0-9]|[2][5][0-5])\.){3}([0-9][0-9]?|[0-1][0-9][0-9]|[2][0-4][0-9]|[2][5][0-5]))$/i",$email));
+}
 
-          // Do not amend anything below here, unless you know PHP
-          function email_is_valid($email) {
-            return preg_match('/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i',$email);
-          }
-          if (!email_is_valid($to)) {
-            echo '<p style="color: red;">You must set-up a valid (to) email address before this contact page will work.</p>';
-          }
-          if (isset($_POST['contact_submitted'])) {
-            $return = "\r";
-            $youremail = trim(htmlspecialchars($_POST['your_email']));
-            $yourname = stripslashes(strip_tags($_POST['your_name']));
-            $yourmessage = stripslashes(strip_tags($_POST['your_message']));
-            $contact_name = "Name: ".$yourname;
-            $message_text = "Message: ".$yourmessage;
-            $user_answer = trim(htmlspecialchars($_POST['user_answer']));
-            $answer = trim(htmlspecialchars($_POST['answer']));
-            $message = $contact_name . $return . $message_text;
-            $headers = "From: ".$youremail;
-            if (email_is_valid($youremail) && !eregi("\r",$youremail) && !eregi("\n",$youremail) && $yourname != "" && $yourmessage != "" && substr(md5($user_answer),5,10) === $answer) {
-              mail($to,$subject,$message,$headers);
-              $yourname = '';
-              $youremail = '';
-              $yourmessage = '';
-              echo '<p style="color: blue;">'.$contact_submitted.'</p>';
-            }
-            else echo '<p style="color: red;">Please enter your name, a valid email address, your message and the answer to the simple maths question before sending your message.</p>';
-          }
-          $number_1 = rand(1, 9);
-          $number_2 = rand(1, 9);
-          $answer = substr(md5($number_1+$number_2),5,10);
-        ?>
-        <form id="contact" action="contact.php" method="post">
-          <div class="form_settings">
-            <p><span>Name</span><input class="contact" type="text" name="your_name" value="<?php echo $yourname; ?>" /></p>
-            <p><span>Email Address</span><input class="contact" type="text" name="your_email" value="<?php echo $youremail; ?>" /></p>
-            <p><span>Message</span><textarea class="contact textarea" rows="5" cols="50" name="your_message"><?php echo $yourmessage; ?></textarea></p>
-            <p style="line-height: 1.7em;">To help prevent spam, please enter the answer to this question:</p>
-            <p><span><?php echo $number_1; ?> + <?php echo $number_2; ?> = ?</span><input type="text" name="user_answer" /><input type="hidden" name="answer" value="<?php echo $answer; ?>" /></p>
-            <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="contact_submitted" value="send" /></p>
-          </div>
-        </form>
-      </div>
-    </div>
-    <footer>
-      <p>Copyright &copy; scenic_photo | <a href="http://www.css3templates.co.uk">design from css3templates.co.uk</a></p>
-    </footer>
-  </div>
-  <p>&nbsp;</p>
-  <!-- javascript at the bottom for fast page loading -->
-  <script type="text/javascript" src="js/jquery.js"></script>
-  <script type="text/javascript" src="js/jquery.easing-sooper.js"></script>
-  <script type="text/javascript" src="js/jquery.sooperfish.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $('ul.sf-menu').sooperfish();
-    });
-  </script>
-</body>
-</html>
+if (!defined("PHP_EOL")) define("PHP_EOL", "\r\n");
+
+$name     = $_POST['name'];
+$email    = $_POST['email'];
+$comment = $_POST['comment'];
+
+if(trim($name) == '') {
+	echo '<div class="error_message">Attention! You must enter your name.</div>';
+	exit();
+} else if(trim($email) == '') {
+	echo '<div class="error_message">Attention! Please enter a valid email address.</div>';
+	exit();
+} else if(!isEmail($email)) {
+	echo '<div class="error_message">Attention! You have enter an invalid e-mail address, try again.</div>';
+	exit();
+}
+
+if(trim($comment) == '') {
+	echo '<div class="error_message">Attention! Please enter your message.</div>';
+	exit();
+}
+
+if(get_magic_quotes_gpc()) {
+	$comment = stripslashes($comment);
+}
+
+
+// Configuration option.
+// Enter the email address that you want to emails to be sent to.
+// Example $address = "joe.doe@yourdomain.com";
+
+//$address = "example@themeforest.net";
+$address = "eugene.strukov@gmail.com";
+
+
+// Configuration option.
+// i.e. The standard subject will appear as, "You've been contacted by John Doe."
+
+// Example, $e_subject = '$name . ' has contacted you via Your Website.';
+
+$e_subject = 'You\'ve been contacted by ' . $name . '.';
+
+
+// Configuration option.
+// You can change this if you feel that you need to.
+// Developers, you may wish to add more fields to the form, in which case you must be sure to add them here.
+
+$e_body = "You have been contacted by $name with regards to $subject, their additional message is as follows." . PHP_EOL . PHP_EOL;
+$e_content = "\"$comment\"" . PHP_EOL . PHP_EOL;
+$e_reply = "You can contact $name via email: $email";
+
+$msg = wordwrap( $e_body . $e_content . $e_reply, 70 );
+
+$headers = "From: $email" . PHP_EOL;
+$headers .= "Reply-To: $email" . PHP_EOL;
+$headers .= "MIME-Version: 1.0" . PHP_EOL;
+$headers .= "Content-type: text/plain; charset=utf-8" . PHP_EOL;
+$headers .= "Content-Transfer-Encoding: quoted-printable" . PHP_EOL;
+
+if(mail($address, $e_subject, $msg, $headers)) {
+
+	// Email has sent successfully, echo a success page.
+
+	echo "<div class='ok_message'><p>Thank you <strong>$name</strong>, your message has been submitted to us.</p></div>";
+
+} else {
+
+	echo '<div class="error_message">ERROR!</div>';
+
+}
